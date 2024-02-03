@@ -1,0 +1,21 @@
+{
+  "name": "movies_api_node",
+  "version": "1.0.0",
+  "description": "A simple example REST API example implemented with Node.js/Fastify and Postgres using [OMDB API data](https://www.omdbapi.com/)",
+  "main": "index.js",
+  "scripts": {
+     "build": "tsc",
+     "start": "node dist/index.js",
+     "dev": "nodemon src/index.ts",
+     "postinstall": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.11.16",
+    "nodemon": "^3.0.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}
