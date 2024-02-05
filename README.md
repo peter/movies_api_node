@@ -39,6 +39,12 @@ curl -i -X PUT -H 'Content-Type:application/json' -d '{"movie":{"title":"Barbie 
 curl -i -X DELETE $BASE_URL/movies/2
 ```
 
+## OpenAPI API Docs
+
+```sh
+open http://localhost:8080/docs
+```
+
 ## How this project was set up
 
 ```sh
