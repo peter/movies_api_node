@@ -38,7 +38,6 @@ export async function addRoutes(server: FastifyInstance) {
   })
 
   // Update movie
-  // TODO: handle 404
   // TODO: validation
   server.put('/movies/:id', {}, async (req, reply) => {
     const { id } = req.params as any
@@ -49,14 +48,22 @@ export async function addRoutes(server: FastifyInstance) {
       .set(movie)
       .where("id = :id", { id })
       .execute()
-    reply.send({ result }) 
+    if (result.affected) {
+      const updatedMovie = await movieRepository.findBy({ id })
+      reply.send({ movie: updatedMovie }) 
+    } else {
+      reply.status(404).send()
+    }
   })
   
   // Delete movie
-  // TODO: handle 404
   server.delete('/movies/:id', {}, async (req, reply) => {
     const { id } = req.params as any
     const result = await movieRepository.delete(id)
-    reply.send({ result })
+    if (result.affected) {
+      reply.status(204).send()
+    } else {
+      reply.status(404).send()
+    }
   })  
 }
