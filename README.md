@@ -2,6 +2,41 @@
 
 A simple REST API example implemented with Node.js/Fastify and Postgres using [OMDB API data](https://www.omdbapi.com/)
 
+## Developer Setup
+
+The API was built using Node.js v20.10.0 and requires having Postgres installed.
+
+```sh
+npm install
+
+# Create postgres database
+createdb -U postgres movies-api-node
+
+npm run dev
+```
+
+## Invoking the API with Curl
+
+```sh
+export BASE_URL=http://localhost:8080
+
+# Get movie by ID
+curl $BASE_URL/movies/10 | jq
+curl -i $BASE_URL/movies/1234567
+
+# List movies
+curl $BASE_URL/movies | jq
+
+# Create movie
+curl -i -X POST -H 'Content-Type:application/json' -d '{"movie":{"title":"Barbie"}}' $BASE_URL/movies
+
+# Update movie
+curl -i -X PUT -H 'Content-Type:application/json' -d '{"movie":{"title":"Barbie EDITED"}}' $BASE_URL/movies/2
+
+# Delete movie
+curl -i -X DELETE $BASE_URL/movies/2
+```
+
 ## How this project was set up
 
 ```sh

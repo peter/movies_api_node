@@ -8,6 +8,6 @@ export class Movie {
     @Column()
     title: string
 
-    @Column()
-    plot: string
+    @Column({nullable: true})
+    plot?: string
 }
