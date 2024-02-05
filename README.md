@@ -1,8 +1,8 @@
 # movies_api_node
 
-A simple example REST API example implemented with Node.js/Fastify and Postgres using [OMDB API data](https://www.omdbapi.com/)
+A simple REST API example implemented with Node.js/Fastify and Postgres using [OMDB API data](https://www.omdbapi.com/)
 
-## How this Project was set up
+## How this project was set up
 
 ```sh
 # Check Node version - installed with nvm
@@ -44,7 +44,47 @@ git init
 # Push to github at https://github.com/peter/movies_api_node
 ```
 
+Web framework:
+
+```sh
+# Install Fastify
+npm install fastify
+# Create basic server in src/index.ts
+```
+
+Database support:
+
+```sh
+# Add ORM
+npm install typeorm
+npm install reflect-metadata
+npm install pg
+# Uncomment in tsconfig.json:
+# "emitDecoratorMetadata": true,
+# "experimentalDecorators": true,
+# "strictPropertyInitialization": false
+
+# Generate sample database code
+npx typeorm init --name MyProject --database postgres
+mv MoviesApi/src/entity src 
+mv MoviesApi/src/migration src
+mv MoviesApi/src/data-source.ts src 
+mv MoviesApi/src/index.ts src/db-test.ts
+rm -r MoviesApi
+# Edit db files to fit your application
+
+# Create postgres database
+createdb -U postgres movies-api-node
+
+# Check database data
+psql -U postgres movies-api-node
+```
+
 ## Resources
 
 * [Recommended Node TSConfig settings](https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping)
-* [knex.js - SQL Query Builder](https://github.com/knex/knex)
+* [How to set up TypeScript with Node.js and Express](https://blog.logrocket.com/how-to-set-up-node-typescript-express/)
+* [Fastify/TypeScript Getting Started](https://fastify.dev/docs/latest/Reference/TypeScript/)
+* [TypeScript Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html)
+* [Choosing a database solution and ORM for Node.js](https://medium.com/@aabedraba/choosing-a-database-solution-and-orm-for-node-js-6c256ced72ff)
+* [How to Build a Nest.js CRUD REST API Using TypeORM and PostgreSQL](https://www.makeuseof.com/nestjs-crud-rest-api-typeorm-postgresql/)

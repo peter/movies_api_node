@@ -1,5 +1,4 @@
-async function main() {
-    console.log('Hello World!')
-}
+import * as server from './server'
 
-main()
+const port = parseInt(process.env.PORT || '8080')
+server.start(port)
