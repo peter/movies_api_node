@@ -1,6 +1,7 @@
 import Fastify from 'fastify'
 import { addRoutes } from './routes'
 import { dbTest } from './db-test'
+import * as openapi from './openapi'
 
 export async function start(port: number) {
     try {
@@ -8,6 +9,7 @@ export async function start(port: number) {
         const server = Fastify({
             logger: true
         })
+        openapi.setup(server)    
         server.register((server, _options, done) => {
             addRoutes(server)
             done()

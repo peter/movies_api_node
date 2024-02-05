@@ -1,4 +1,4 @@
-import { FastifyInstance } from 'fastify'
+import { FastifyInstance, RouteShorthandOptions } from 'fastify'
 import { AppDataSource } from './data-source'
 import { Movie } from './entity/Movie'
 
@@ -29,17 +29,59 @@ export async function addRoutes(server: FastifyInstance) {
     reply.send({ movies })
   })
 
+  const movieProperties = {
+    title: { type: 'string' },
+    plot: { type: 'string' },
+  }
+
   // Create movie
-  // TODO: validation
-  server.post('/movies', {}, async (req, reply) => {
+  const createOptions: RouteShorthandOptions = {
+    schema: {
+        tags: ["movies"],
+        description: 'create movie',
+        body: {
+          type: 'object',
+          properties: {
+            movie: {
+              type: 'object',
+              properties: movieProperties,
+              required: ['title'],
+              additionalProperties: false
+            },
+          },
+          required: ['movie'],
+          additionalProperties: false
+        },
+    },
+  }
+  server.post('/movies', createOptions, async (req, reply) => {
     const { movie } = req.body as any
     const result = await movieRepository.save(movie)
     reply.send({ movie: result })
   })
 
   // Update movie
-  // TODO: validation
-  server.put('/movies/:id', {}, async (req, reply) => {
+  const updateOptions: RouteShorthandOptions = {
+    schema: {
+        tags: ["movies"],
+        description: 'create movie',
+        body: {
+          type: 'object',
+          properties: {
+            movie: {
+              type: 'object',
+              properties: movieProperties,
+              required: [],
+              minProperties: 1,
+              additionalProperties: false
+            },
+          },
+          required: ['movie'],
+          additionalProperties: false
+        },
+    },
+  }
+  server.put('/movies/:id', updateOptions, async (req, reply) => {
     const { id } = req.params as any
     const { movie } = req.body as any
     const result = await AppDataSource

@@ -29,6 +29,8 @@ curl $BASE_URL/movies | jq
 
 # Create movie
 curl -i -X POST -H 'Content-Type:application/json' -d '{"movie":{"title":"Barbie"}}' $BASE_URL/movies
+# Create movie with validation error
+curl -i -X POST -H 'Content-Type:application/json' -d '{"movie":{"foobar":"Barbie"}}' $BASE_URL/movies
 
 # Update movie
 curl -i -X PUT -H 'Content-Type:application/json' -d '{"movie":{"title":"Barbie EDITED"}}' $BASE_URL/movies/2
@@ -85,6 +87,12 @@ Web framework:
 # Install Fastify
 npm install fastify
 # Create basic server in src/index.ts
+```
+
+API Docs:
+
+```sh
+npm install @fastify/swagger @fastify/swagger-ui
 ```
 
 Database support:
